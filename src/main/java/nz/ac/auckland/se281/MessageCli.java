@@ -16,6 +16,7 @@ public enum MessageCli {
   VENUE_NOT_CREATED_EMPTY_NAME("Venue not created: venue name must not be empty."),
   VENUE_NOT_CREATED_INVALID_NUMBER("Venue not created: %s must be a%s number."),
   VENUE_ENTRY("  * %s (%s) - %s people - $%s base hire fee. Next available on %s"),
+  VENUE_ENTRY1("%s (%s) - %s people - $%s base hire fee."),
 
   // Task 2 messages
   DATE_SET("System date set to %s."),

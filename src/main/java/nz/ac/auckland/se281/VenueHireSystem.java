@@ -28,14 +28,14 @@ public class VenueHireSystem {
         MessageCli.NUMBER_VENUES.printMessage("is", numbers[NumberOfVenues - 1], "");
       }
       else if(NumberOfVenues < 10){
-        MessageCli.NUMBER_VENUES.printMessage("is", numbers[NumberOfVenues - 1], "s");
+        MessageCli.NUMBER_VENUES.printMessage("are", numbers[NumberOfVenues - 1], "s");
       }
-      else if(NumberOfVenues > 10){
-        MessageCli.NUMBER_VENUES.printMessage("is", Integer.toString(NumberOfVenues), "s");
+      else if(NumberOfVenues >= 10){
+        MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(NumberOfVenues), "s");
       }
       // create a for loop to print out all the venues
-      for (int i = 0; i < AllVenues.length; i++) {
-        MessageCli.VENUE_ENTRY.printMessage(AllVenues[i][0], AllVenues[i][1], AllVenues[i][2], AllVenues[i][3]);
+      for (int i = 0; i < NumberOfVenues; i++) {
+        MessageCli.VENUE_ENTRY1.printMessage(AllVenues[i][0], AllVenues[i][1], AllVenues[i][2], AllVenues[i][3]);
       }
       
     }
@@ -54,10 +54,25 @@ public class VenueHireSystem {
   public void createVenue(
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
     
-        // put all the info into a array
+    // put all the info into a array
     Venue = new String[] {venueName, venueCode, capacityInput, hireFeeInput};
     // put the array in a array as the first element and continue increasing the number of venues
-    AllVenues = new String[][] {Venue};
+    // intialize allvenue array
+    if(AllVenues == null){
+      AllVenues = new String[1][4];
+    }
+    // add one more row to the array
+    else{
+      String[][] temp = AllVenues;
+      AllVenues = new String[NumberOfVenues + 1][4];
+      for (int i = 0; i < NumberOfVenues; i++) {
+        AllVenues[i] = temp[i];
+      }
+}
+    // add the new info to the array
+    for (int i = 0; i < Venue.length; i++) {
+      AllVenues[NumberOfVenues][i] = Venue[i];
+  }
     NumberOfVenues++;
 
     // if venue name is empty, print error message 

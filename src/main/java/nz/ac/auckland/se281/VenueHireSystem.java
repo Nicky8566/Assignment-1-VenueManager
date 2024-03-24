@@ -20,26 +20,44 @@ public class VenueHireSystem {
     if (AllVenues == null) {
       MessageCli.NO_VENUES.printMessage();
     }
-
-  
   }
+  public boolean isInteger(String s) {
+    try {
+      // converts string to integer
+        Integer.parseInt(s);
+        return true;
+    } catch (NumberFormatException e) {
+        return false;
+    }
+}
 
   public void createVenue(
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
-      // if venue name is empty, print error message 
+
+    // if venue name is empty, print error message 
     if (venueName.isEmpty()) {
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
       return;
     }
+    
     else if(Integer.parseInt(capacityInput) < 0){
       // write error meesage for it being negative
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
       return;
     }
-
+    
+    // write a error meesage condition for when the string hireFeeinput isnt a interger
+    else if(isInteger(hireFeeInput) == false){
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
+      return;
+    }
+    
     else {
       MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
     }
+    
+    
+      
   }
 
   public void setSystemDate(String dateInput) {

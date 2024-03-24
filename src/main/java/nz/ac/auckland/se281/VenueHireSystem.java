@@ -26,14 +26,8 @@ public class VenueHireSystem {
 
   public void createVenue(
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
-      // if venue name is empty, print error message
-    if (venueName.isEmpty()) {
-      MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
-      return;
-    }
-    else {
-      MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
-    }
+      
+        MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
   }
 
   public void setSystemDate(String dateInput) {

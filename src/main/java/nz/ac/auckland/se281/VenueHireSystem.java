@@ -21,28 +21,19 @@ public class VenueHireSystem {
       MessageCli.NO_VENUES.printMessage();
     }
 
-    // test 
-    MessageCli.NUMBER_VENUES.printMessage("is", "one", "");
-    MessageCli.VENUE_ENTRY.printMessage("'Frugal Fiesta Hall'", "FFH", "80", "150");
+  
   }
 
   public void createVenue(
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
-        // add venu name 
-        this.venueName = venueName;
-        this.venueCode = venueCode;
-        this.capacityInput = capacityInput;
-        this.hireFeeInput = hireFeeInput;
-        // add venue info to the venue array
-        this.Venue[0] = venueName;
-        this.Venue[1] = venueCode;
-        this.Venue[2] = capacityInput;
-        this.Venue[3] = hireFeeInput;
-        // put venue in allvenues array
-        this.AllVenues[this.NumberOfVenues] = Venue;
-        // increment number of venues
-        this.NumberOfVenues++;
-
+      // if venue name is empty, print error message
+    if (venueName.isEmpty()) {
+      MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
+      return;
+    }
+    else {
+      MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
+    }
   }
 
   public void setSystemDate(String dateInput) {

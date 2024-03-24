@@ -6,7 +6,7 @@ import nz.ac.auckland.se281.Types.FloralType;
 public class VenueHireSystem {
 
   //fields
-  private Object[] AllVenues;
+  private String[][] AllVenues;
   private String[] Venue;
   private String venueName;
   private String venueCode;
@@ -21,6 +21,23 @@ public class VenueHireSystem {
   public void printVenues() {
     if (AllVenues == null) {
       MessageCli.NO_VENUES.printMessage();
+    }
+    if(NumberOfVenues != 0){
+      String[] numbers = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+      if (NumberOfVenues == 1){
+        MessageCli.NUMBER_VENUES.printMessage("is", numbers[NumberOfVenues - 1], "");
+      }
+      else if(NumberOfVenues < 10){
+        MessageCli.NUMBER_VENUES.printMessage("is", numbers[NumberOfVenues - 1], "s");
+      }
+      else if(NumberOfVenues > 10){
+        MessageCli.NUMBER_VENUES.printMessage("is", Integer.toString(NumberOfVenues), "s");
+      }
+      // create a for loop to print out all the venues
+      for (int i = 0; i < AllVenues.length; i++) {
+        MessageCli.VENUE_ENTRY.printMessage(AllVenues[i][0], AllVenues[i][1], AllVenues[i][2], AllVenues[i][3]);
+      }
+      
     }
   }
   public boolean isInteger(String s) {
@@ -60,25 +77,9 @@ public class VenueHireSystem {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
       return;
     }
-    if(NumberOfVenues != 0){
-      String[] numbers = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-      if (NumberOfVenues == 1){
-        MessageCli.NUMBER_VENUES.printMessage("is", numbers[NumberOfVenues - 1], "");
-      }
-      else if(NumberOfVenues < 10){
-        MessageCli.NUMBER_VENUES.printMessage("is", numbers[NumberOfVenues - 1], "s");
-      }
-      else if(NumberOfVenues > 10){
-        MessageCli.NUMBER_VENUES.printMessage("is", Integer.toString(NumberOfVenues), "s");
-      }
-      
-    }
+    
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
     
-    
-    
-    
-      
   }
 
   public void setSystemDate(String dateInput) {

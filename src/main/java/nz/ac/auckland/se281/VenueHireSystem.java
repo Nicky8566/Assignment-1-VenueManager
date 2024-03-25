@@ -5,7 +5,7 @@ import nz.ac.auckland.se281.Types.FloralType;
 
 public class VenueHireSystem {
 
-  //fields
+  // fields
   private String[][] AllVenues;
   private String[] Venue;
   private String venueName;
@@ -14,9 +14,7 @@ public class VenueHireSystem {
   private String hireFeeInput;
   private Integer NumberOfVenues = 0;
 
-  public VenueHireSystem() {
-
-  }
+  public VenueHireSystem() {}
 
   public void printVenues() {
     if (AllVenues == null) {
@@ -26,20 +24,19 @@ public class VenueHireSystem {
       String[] numbers = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
       if (NumberOfVenues == 1) {
         MessageCli.NUMBER_VENUES.printMessage("is", numbers[NumberOfVenues - 1], "");
-      }
-      else if(NumberOfVenues < 10) {
+      } else if (NumberOfVenues < 10) {
         MessageCli.NUMBER_VENUES.printMessage("are", numbers[NumberOfVenues - 1], "s");
-      }
-      else if(NumberOfVenues >= 10) {
+      } else if (NumberOfVenues >= 10) {
         MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(NumberOfVenues), "s");
       }
       // create a for loop to print out all the venues
       for (int i = 0; i < NumberOfVenues; i++) {
-        MessageCli.VENUE_ENTRY.printMessage(AllVenues[i][0], AllVenues[i][1], AllVenues[i][2], AllVenues[i][3]);
+        MessageCli.VENUE_ENTRY.printMessage(
+            AllVenues[i][0], AllVenues[i][1], AllVenues[i][2], AllVenues[i][3]);
       }
-      
     }
   }
+
   public boolean isInteger(String s) {
     try {
       // converts string to integer, if so return true, otherwise
@@ -49,14 +46,14 @@ public class VenueHireSystem {
       // if it fails, return false
       return false;
     }
-}
+  }
 
   public void createVenue(
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
-    
+
     // put all the info into a array
     Venue = new String[] {venueName, venueCode, capacityInput, hireFeeInput};
-    
+
     // checking if the venue code already exists
     if (NumberOfVenues >= 1) {
       for (int i = 0; i < NumberOfVenues; i++) {
@@ -67,13 +64,13 @@ public class VenueHireSystem {
       }
     }
 
-    // if venue name is empty, print error message 
+    // if venue name is empty, print error message
     if (venueName.isEmpty()) {
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
       return;
     }
 
-    // if venue code is empty, print error message 
+    // if venue code is empty, print error message
     if (venueCode.isEmpty()) {
       MessageCli.VENUE_NOT_CREATED_CODE_IS_EMPTY.printMessage();
       return;
@@ -84,7 +81,7 @@ public class VenueHireSystem {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity input", "");
       return;
     }
-    
+
     if (Integer.parseInt(capacityInput) < 0) {
       // write error meesage for it being negative
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
@@ -102,7 +99,7 @@ public class VenueHireSystem {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", " positive");
       return;
     }
-    
+
     // put the array in a array as the first element and continue increasing the number of venues
     // intialize allvenue array
     if (AllVenues == null) {
@@ -124,7 +121,6 @@ public class VenueHireSystem {
 
     // print success message
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
-    
   }
 
   public void setSystemDate(String dateInput) {

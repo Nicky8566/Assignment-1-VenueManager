@@ -22,15 +22,15 @@ public class VenueHireSystem {
     if (AllVenues == null) {
       MessageCli.NO_VENUES.printMessage();
     }
-    if (NumberOfVenues != 0){
+    if (NumberOfVenues != 0) {
       String[] numbers = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-      if (NumberOfVenues == 1){
+      if (NumberOfVenues == 1) {
         MessageCli.NUMBER_VENUES.printMessage("is", numbers[NumberOfVenues - 1], "");
       }
-      else if(NumberOfVenues < 10){
+      else if(NumberOfVenues < 10) {
         MessageCli.NUMBER_VENUES.printMessage("are", numbers[NumberOfVenues - 1], "s");
       }
-      else if(NumberOfVenues >= 10){
+      else if(NumberOfVenues >= 10) {
         MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(NumberOfVenues), "s");
       }
       // create a for loop to print out all the venues
@@ -80,19 +80,19 @@ public class VenueHireSystem {
     }
 
     // write a error meesage condition for when the string capacityInput isnt a interger
-    if(isInteger(capacityInput) == false){
+    if (isInteger(capacityInput) == false) {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity input", "");
       return;
     }
     
-    if(Integer.parseInt(capacityInput) < 0){
+    if (Integer.parseInt(capacityInput) < 0) {
       // write error meesage for it being negative
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
       return;
     }
 
     // write a error meesage condition for when the string hireFeeinput isnt a interger
-    if(isInteger(hireFeeInput) == false){
+    if (isInteger(hireFeeInput) == false) {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
       return;
     }
@@ -105,11 +105,11 @@ public class VenueHireSystem {
     
     // put the array in a array as the first element and continue increasing the number of venues
     // intialize allvenue array
-    if(AllVenues == null){
+    if (AllVenues == null) {
       AllVenues = new String[1][4];
     }
     // add one more row to the array
-    else{
+    else {
       String[][] temp = AllVenues;
       AllVenues = new String[NumberOfVenues + 1][4];
       for (int i = 0; i < NumberOfVenues; i++) {

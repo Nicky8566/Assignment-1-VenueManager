@@ -35,7 +35,7 @@ public class VenueHireSystem {
       }
       // create a for loop to print out all the venues
       for (int i = 0; i < NumberOfVenues; i++) {
-        MessageCli.VENUE_ENTRY1.printMessage(AllVenues[i][0], AllVenues[i][1], AllVenues[i][2], AllVenues[i][3]);
+        MessageCli.VENUE_ENTRY.printMessage(AllVenues[i][0], AllVenues[i][1], AllVenues[i][2], AllVenues[i][3]);
       }
       
     }
@@ -56,6 +56,17 @@ public class VenueHireSystem {
     
     // put all the info into a array
     Venue = new String[] {venueName, venueCode, capacityInput, hireFeeInput};
+    
+    // checking if the venue code already exists
+    if(NumberOfVenues >= 1){
+      for (int i = 0; i < NumberOfVenues; i++) {
+        if (AllVenues[i][1].equals(venueCode) == true) {
+          MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(AllVenues[i][1], venueName);
+          return;
+        }
+      }
+    }
+     
     // put the array in a array as the first element and continue increasing the number of venues
     // intialize allvenue array
     if(AllVenues == null){
@@ -92,6 +103,8 @@ public class VenueHireSystem {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
       return;
     }
+
+    
     
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
     

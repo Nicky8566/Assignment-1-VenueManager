@@ -22,7 +22,7 @@ public class VenueHireSystem {
     if (AllVenues == null) {
       MessageCli.NO_VENUES.printMessage();
     }
-    if(NumberOfVenues != 0){
+    if (NumberOfVenues != 0){
       String[] numbers = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
       if (NumberOfVenues == 1){
         MessageCli.NUMBER_VENUES.printMessage("is", numbers[NumberOfVenues - 1], "");
@@ -42,7 +42,7 @@ public class VenueHireSystem {
   }
   public boolean isInteger(String s) {
     try {
-      // converts string to integer, if so return true, otherwise
+        // converts string to integer, if so return true, otherwise
         Integer.parseInt(s);
         return true;
     } catch (NumberFormatException e) {
@@ -119,7 +119,7 @@ public class VenueHireSystem {
     // add the new info to the array
     for (int i = 0; i < Venue.length; i++) {
       AllVenues[NumberOfVenues][i] = Venue[i];
-  }
+    }
     NumberOfVenues++;
 
     // print success message

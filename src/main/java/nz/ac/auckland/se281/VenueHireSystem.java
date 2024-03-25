@@ -42,12 +42,12 @@ public class VenueHireSystem {
   }
   public boolean isInteger(String s) {
     try {
-        // converts string to integer, if so return true, otherwise
-        Integer.parseInt(s);
-        return true;
+      // converts string to integer, if so return true, otherwise
+      Integer.parseInt(s);
+      return true;
     } catch (NumberFormatException e) {
       // if it fails, return false
-        return false;
+      return false;
     }
 }
 
@@ -58,7 +58,7 @@ public class VenueHireSystem {
     Venue = new String[] {venueName, venueCode, capacityInput, hireFeeInput};
     
     // checking if the venue code already exists
-    if(NumberOfVenues >= 1){
+    if (NumberOfVenues >= 1) {
       for (int i = 0; i < NumberOfVenues; i++) {
         if (AllVenues[i][1].equals(venueCode) == true) {
           MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(AllVenues[i][1], venueName);
@@ -97,7 +97,7 @@ public class VenueHireSystem {
       return;
     }
 
-    if(Integer.parseInt(hireFeeInput) < 0){
+    if (Integer.parseInt(hireFeeInput) < 0) {
       // write error meesage for it being negative
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", " positive");
       return;
@@ -115,7 +115,7 @@ public class VenueHireSystem {
       for (int i = 0; i < NumberOfVenues; i++) {
         AllVenues[i] = temp[i];
       }
-}
+    }
     // add the new info to the array
     for (int i = 0; i < Venue.length; i++) {
       AllVenues[NumberOfVenues][i] = Venue[i];

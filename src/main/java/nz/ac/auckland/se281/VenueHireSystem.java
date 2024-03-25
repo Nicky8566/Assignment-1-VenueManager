@@ -73,9 +73,9 @@ public class VenueHireSystem {
       return;
     }
 
-    // write a error meesage condition for when the string hireFeeinput isnt a interger
-    if(isInteger(hireFeeInput) == false){
-      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
+    // if venue code is empty, print error message 
+    if (venueCode.isEmpty()) {
+      MessageCli.VENUE_NOT_CREATED_CODE_IS_EMPTY.printMessage();
       return;
     }
 
@@ -91,15 +91,18 @@ public class VenueHireSystem {
       return;
     }
 
+    // write a error meesage condition for when the string hireFeeinput isnt a interger
+    if(isInteger(hireFeeInput) == false){
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
+      return;
+    }
+
     if(Integer.parseInt(hireFeeInput) < 0){
       // write error meesage for it being negative
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", " positive");
       return;
     }
     
-    
-    
-
     // put the array in a array as the first element and continue increasing the number of venues
     // intialize allvenue array
     if(AllVenues == null){

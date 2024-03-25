@@ -66,7 +66,40 @@ public class VenueHireSystem {
         }
       }
     }
-     
+
+    // if venue name is empty, print error message 
+    if (venueName.isEmpty()) {
+      MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
+      return;
+    }
+
+    // write a error meesage condition for when the string hireFeeinput isnt a interger
+    if(isInteger(hireFeeInput) == false){
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
+      return;
+    }
+
+    // write a error meesage condition for when the string capacityInput isnt a interger
+    if(isInteger(capacityInput) == false){
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity input", "");
+      return;
+    }
+    
+    if(Integer.parseInt(capacityInput) < 0){
+      // write error meesage for it being negative
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
+      return;
+    }
+
+    if(Integer.parseInt(hireFeeInput) < 0){
+      // write error meesage for it being negative
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", " positive");
+      return;
+    }
+    
+    
+    
+
     // put the array in a array as the first element and continue increasing the number of venues
     // intialize allvenue array
     if(AllVenues == null){
@@ -86,26 +119,7 @@ public class VenueHireSystem {
   }
     NumberOfVenues++;
 
-    // if venue name is empty, print error message 
-    if (venueName.isEmpty()) {
-      MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
-      return;
-    }
-    
-    if(Integer.parseInt(capacityInput) < 0){
-      // write error meesage for it being negative
-      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
-      return;
-    }
-    
-    // write a error meesage condition for when the string hireFeeinput isnt a interger
-    if(isInteger(hireFeeInput) == false){
-      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
-      return;
-    }
-
-    
-    
+    // print success message
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
     
   }

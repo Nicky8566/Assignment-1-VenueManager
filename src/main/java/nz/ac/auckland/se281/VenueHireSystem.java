@@ -6,33 +6,33 @@ import nz.ac.auckland.se281.Types.FloralType;
 public class VenueHireSystem {
 
   // fields
-  private String[][] AllVenues;
-  private String[] Venue;
+  private String[][] allVenues;
+  private String[] venue;
   private String venueName;
   private String venueCode;
   private String capacityInput;
   private String hireFeeInput;
-  private Integer NumberOfVenues = 0;
+  private Integer numberOfVenues = 0;
 
   public VenueHireSystem() {}
 
   public void printVenues() {
-    if (AllVenues == null) {
+    if (allVenues == null) {
       MessageCli.NO_VENUES.printMessage();
     }
-    if (NumberOfVenues != 0) {
+    if (numberOfVenues != 0) {
       String[] numbers = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-      if (NumberOfVenues == 1) {
-        MessageCli.NUMBER_VENUES.printMessage("is", numbers[NumberOfVenues - 1], "");
-      } else if (NumberOfVenues < 10) {
-        MessageCli.NUMBER_VENUES.printMessage("are", numbers[NumberOfVenues - 1], "s");
-      } else if (NumberOfVenues >= 10) {
-        MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(NumberOfVenues), "s");
+      if (numberOfVenues == 1) {
+        MessageCli.NUMBER_VENUES.printMessage("is", numbers[numberOfVenues - 1], "");
+      } else if (numberOfVenues < 10) {
+        MessageCli.NUMBER_VENUES.printMessage("are", numbers[numberOfVenues - 1], "s");
+      } else if (numberOfVenues >= 10) {
+        MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(numberOfVenues), "s");
       }
       // create a for loop to print out all the venues
-      for (int i = 0; i < NumberOfVenues; i++) {
+      for (int i = 0; i < numberOfVenues; i++) {
         MessageCli.VENUE_ENTRY.printMessage(
-            AllVenues[i][0], AllVenues[i][1], AllVenues[i][2], AllVenues[i][3]);
+            allVenues[i][0], allVenues[i][1], allVenues[i][2], allVenues[i][3]);
       }
     }
   }
@@ -52,13 +52,13 @@ public class VenueHireSystem {
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
 
     // put all the info into a array
-    Venue = new String[] {venueName, venueCode, capacityInput, hireFeeInput};
+    venue = new String[] {venueName, venueCode, capacityInput, hireFeeInput};
 
     // checking if the venue code already exists
-    if (NumberOfVenues >= 1) {
-      for (int i = 0; i < NumberOfVenues; i++) {
-        if (AllVenues[i][1].equals(venueCode) == true) {
-          MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(AllVenues[i][1], venueName);
+    if (numberOfVenues >= 1) {
+      for (int i = 0; i < numberOfVenues; i++) {
+        if (allVenues[i][1].equals(venueCode) == true) {
+          MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(allVenues[i][1], venueName);
           return;
         }
       }
@@ -102,22 +102,22 @@ public class VenueHireSystem {
 
     // put the array in a array as the first element and continue increasing the number of venues
     // intialize allvenue array
-    if (AllVenues == null) {
-      AllVenues = new String[1][4];
+    if (allVenues == null) {
+      allVenues = new String[1][4];
     }
     // add one more row to the array
     else {
-      String[][] temp = AllVenues;
-      AllVenues = new String[NumberOfVenues + 1][4];
-      for (int i = 0; i < NumberOfVenues; i++) {
-        AllVenues[i] = temp[i];
+      String[][] temp = allVenues;
+      allVenues = new String[numberOfVenues + 1][4];
+      for (int i = 0; i < numberOfVenues; i++) {
+        allVenues[i] = temp[i];
       }
     }
     // add the new info to the array
-    for (int i = 0; i < Venue.length; i++) {
-      AllVenues[NumberOfVenues][i] = Venue[i];
+    for (int i = 0; i < venue.length; i++) {
+      allVenues[numberOfVenues][i] = venue[i];
     }
-    NumberOfVenues++;
+    numberOfVenues++;
 
     // print success message
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);

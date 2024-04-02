@@ -70,12 +70,6 @@ public class VenueHireSystem {
       return;
     }
 
-    // if venue code is empty, print error message
-    if (venueCode.isEmpty()) {
-      MessageCli.VENUE_NOT_CREATED_CODE_IS_EMPTY.printMessage();
-      return;
-    }
-
     // write a error meesage condition for when the string capacityInput isnt a interger
     if (isInteger(capacityInput) == false) {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity input", "");

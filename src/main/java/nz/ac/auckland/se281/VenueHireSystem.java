@@ -58,7 +58,7 @@ public class VenueHireSystem {
     if (numberOfVenues >= 1) {
       for (int i = 0; i < numberOfVenues; i++) {
         if (allVenues[i][1].equals(venueCode) == true) {
-          MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(allVenues[i][1], venueName);
+          MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(allVenues[i][1], allVenues[0][i]);
           return;
         }
       }
@@ -70,15 +70,27 @@ public class VenueHireSystem {
       return;
     }
 
+    // write a error meesage fow when capcity input is not a whole number
+    if (capacityInput.contains(".")) {
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " whole");
+      return;
+    }
+
     // write a error meesage condition for when the string capacityInput isnt a interger
     if (isInteger(capacityInput) == false) {
-      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity input", "");
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", "");
       return;
     }
 
     if (Integer.parseInt(capacityInput) < 0) {
       // write error meesage for it being negative
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
+      return;
+    }
+
+    // write a error meesage fow when hire fee input is not a whole number
+    if (hireFeeInput.contains(".")) {
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", " whole");
       return;
     }
 

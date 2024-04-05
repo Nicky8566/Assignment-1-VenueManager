@@ -8,6 +8,7 @@ public class VenueHireSystem {
   // fields
   private String[][] allVenues;
   private String[] venue;
+  private String dateInput;
   private String venueName;
   private String venueCode;
   private String capacityInput;
@@ -130,15 +131,30 @@ public class VenueHireSystem {
   }
 
   public void setSystemDate(String dateInput) {
-    // TODO implement this method
+    MessageCli.DATE_SET.printMessage(dateInput);
+    this.dateInput = dateInput;
   }
 
   public void printSystemDate() {
-    // TODO implement this method
+    // make a if statement for when dateinut is not set
+    if (dateInput != null) {
+      MessageCli.CURRENT_DATE.printMessage(dateInput);
+    } else {
+      MessageCli.CURRENT_DATE.printMessage("not set");
+    }
   }
 
   public void makeBooking(String[] options) {
-    // TODO implement this method
+    // if dates are empty
+    if (dateInput == null) {
+      MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
+      return;
+    }
+    // if venues are empty
+    if (allVenues == null) {
+      MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
+      return;
+    }
   }
 
   public void printBookings(String venueCode) {

@@ -155,6 +155,19 @@ public class VenueHireSystem {
       MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
       return;
     }
+
+    // using BookingReferenceGenerator.generateBookingReference() to generate a booking reference
+    String bookingReference = BookingReferenceGenerator.generateBookingReference();
+    // find the venue name corresponding to the venue code given in options
+    for (int i = 0; i < numberOfVenues; i++) {
+      if (allVenues[i][1].equals(options[0])) {
+        venueName = allVenues[i][0];
+        break;
+      }
+    }
+    // succesfully created venue using MAKE_BOOKING_SUCCESSFUL meesage
+    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
+        bookingReference, venueName, options[1], options[3]);
   }
 
   public void printBookings(String venueCode) {

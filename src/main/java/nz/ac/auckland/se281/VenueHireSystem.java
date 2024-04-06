@@ -8,12 +8,14 @@ public class VenueHireSystem {
   // fields
   private String[][] allVenues;
   private String[] venue;
+  private String[][] bookings;
   private String dateInput;
   private String venueName;
   private String venueCode;
   private String capacityInput;
   private String hireFeeInput;
   private Integer numberOfVenues = 0;
+  private Integer numberOfBookings = 0;
 
   public VenueHireSystem() {}
 
@@ -145,6 +147,12 @@ public class VenueHireSystem {
   }
 
   public void makeBooking(String[] options) {
+    // assign options in more understandable variables
+    String venueCode = options[0];
+    String partyDate = options[1];
+    String customerEmail = options[2];
+    String numberOfAttendees = options[3];
+
     // if dates are empty
     if (dateInput == null) {
       MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
@@ -160,14 +168,16 @@ public class VenueHireSystem {
     String bookingReference = BookingReferenceGenerator.generateBookingReference();
     // find the venue name corresponding to the venue code given in options
     for (int i = 0; i < numberOfVenues; i++) {
-      if (allVenues[i][1].equals(options[0])) {
+      if (allVenues[i][1].equals(venueCode)) {
         venueName = allVenues[i][0];
+
         break;
       }
     }
+    //
     // succesfully created venue using MAKE_BOOKING_SUCCESSFUL meesage
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
-        bookingReference, venueName, options[1], options[3]);
+        bookingReference, venueName, partyDate, numberOfAttendees);
   }
 
   public void printBookings(String venueCode) {

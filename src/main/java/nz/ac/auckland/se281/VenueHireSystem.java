@@ -184,6 +184,18 @@ public class VenueHireSystem {
       }
     }
 
+    // adjust the number of attendees to 100% of the venue size if it more then the venue size
+    for (int i = 0; i < numberOfVenues; i++) {
+      if (allVenues[i][1].equals(venueCode)) {
+        if (Integer.parseInt(numberOfAttendees) > Integer.parseInt(allVenues[i][2])) {
+          numberOfAttendees = allVenues[i][2];
+          MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
+              options[3], numberOfAttendees, allVenues[i][2]);
+        }
+        break;
+      }
+    }
+
     // using BookingReferenceGenerator.generateBookingReference() to generate a booking reference
     String bookingReference = BookingReferenceGenerator.generateBookingReference();
     // find the venue name corresponding to the venue code given in options

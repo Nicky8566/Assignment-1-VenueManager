@@ -147,6 +147,20 @@ public class VenueHireSystem {
       }
     }
 
+    // if the number of attendes it less then a quater of the venue size, make the number of
+    // attendees at least a quater of the venue size
+    for (VenuesCreator venue : allVenues) {
+      if (venue.getCode().equals(venueCode)) {
+        if (Integer.parseInt(attendees) < Integer.parseInt(venue.getCapacity()) / 4) {
+          MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
+              attendees,
+              Integer.toString(Integer.parseInt(venue.getCapacity()) / 4),
+              venue.getCapacity());
+          attendees = Integer.toString(Integer.parseInt(venue.getCapacity()) / 4);
+        }
+      }
+    }
+
     // find the venue name corresponding to the given venue code
     String venueName = "";
     for (VenuesCreator venue : allVenues) {

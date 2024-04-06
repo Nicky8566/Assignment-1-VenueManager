@@ -120,14 +120,16 @@ public class VenueHireSystem {
   }
 
   public void makeBooking(String[] options) {
-    BookingsCreator newBooking = new BookingsCreator(options);
-    // print succesfully created venue meesage
-    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
-        newBooking.getReference(),
-        newBooking.getVenueName(),
-        newBooking.getPartyDate(),
-        newBooking.getNumberOfAttendees());
-    allBookings.add(newBooking);
+    // booking not made assign the date first
+    if (dateInput == null) {
+      MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
+      return;
+    }
+    // booking not made if there are no venues
+    if (allVenues.isEmpty()) {
+      MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
+      return;
+    }
   }
 
   public void printBookings(String venueCode) {

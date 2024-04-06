@@ -171,6 +171,19 @@ public class VenueHireSystem {
       }
     }
 
+    // adjust the number of attendees to at least a quater of the venue size if it less then a
+    // quater of the venue size
+    for (int i = 0; i < numberOfVenues; i++) {
+      if (allVenues[i][1].equals(venueCode)) {
+        if (Integer.parseInt(numberOfAttendees) < Integer.parseInt(allVenues[i][2]) / 4) {
+          numberOfAttendees = Integer.toString(Integer.parseInt(allVenues[i][2]) / 4);
+          MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
+              options[3], numberOfAttendees, allVenues[i][2]);
+        }
+        break;
+      }
+    }
+
     // using BookingReferenceGenerator.generateBookingReference() to generate a booking reference
     String bookingReference = BookingReferenceGenerator.generateBookingReference();
     // find the venue name corresponding to the venue code given in options
@@ -183,15 +196,17 @@ public class VenueHireSystem {
     }
     // put all the info into a array
     String[] booking =
-        new String[] {bookingReference, venueName, venueCode, partyDate, numberOfAttendees};
+        new String[] {
+          bookingReference, venueName, venueCode, partyDate, numberOfAttendees, customerEmail
+        };
     // add the new info to the bookings array
     if (bookings == null) {
-      bookings = new String[1][5];
+      bookings = new String[1][6];
     }
     // add one more row to the array
     else {
       String[][] temp = bookings;
-      bookings = new String[numberOfBookings + 1][5];
+      bookings = new String[numberOfBookings + 1][6];
       for (int i = 0; i < numberOfBookings; i++) {
         bookings[i] = temp[i];
       }

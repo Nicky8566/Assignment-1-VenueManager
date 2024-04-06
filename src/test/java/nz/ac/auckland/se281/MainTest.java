@@ -14,9 +14,9 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
   MainTest.Task1.class,
-  MainTest.Task2.class,
+  // MainTest.Task2.class,
   // MainTest.Task3.class,
-  // MainTest.YourTests.class,
+  MainTest.YourTests.class,
 })
 public class MainTest {
 

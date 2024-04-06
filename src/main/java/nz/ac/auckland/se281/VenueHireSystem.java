@@ -1,50 +1,35 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
 import nz.ac.auckland.se281.Types.CateringType;
 import nz.ac.auckland.se281.Types.FloralType;
 
 public class VenueHireSystem {
+  private ArrayList<VenuesCreator> allVenues = new ArrayList<VenuesCreator>();
 
-  // fields
-  private String[][] allVenues;
-  private String[] venue;
-  private String[][] bookings;
-  private String dateInput;
-  private String venueName;
-  private String venueCode;
-  private String capacityInput;
-  private String hireFeeInput;
-  private Integer numberOfVenues = 0;
-  private Integer numberOfBookings = 0;
-
-  public VenueHireSystem() {}
+  public VenueHireSystem() {
+    allVenues = new ArrayList<>();
+  }
 
   public void printVenues() {
-    if (allVenues == null) {
+    // if theres no venues in all venues print error meesages
+    if (allVenues.isEmpty()) {
       MessageCli.NO_VENUES.printMessage();
     }
-    if (numberOfVenues != 0) {
+    // if all venues does have a venue then print the number of venues
+    if (!allVenues.isEmpty()) {
       String[] numbers = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-      if (numberOfVenues == 1) {
-        MessageCli.NUMBER_VENUES.printMessage("is", numbers[numberOfVenues - 1], "");
-      } else if (numberOfVenues < 10) {
-        MessageCli.NUMBER_VENUES.printMessage("are", numbers[numberOfVenues - 1], "s");
-      } else if (numberOfVenues >= 10) {
-        MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(numberOfVenues), "s");
+      if (allVenues.size() == 1) {
+        MessageCli.NUMBER_VENUES.printMessage("is", numbers[allVenues.size() - 1], "");
+      } else if (allVenues.size() < 10) {
+        MessageCli.NUMBER_VENUES.printMessage("are", numbers[allVenues.size() - 1], "s");
+      } else if (allVenues.size() >= 10) {
+        MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(allVenues.size()), "s");
       }
-      // create a for loop to print out all the venues
-      for (int i = 0; i < numberOfVenues; i++) {
-        // make a venue entry meesage without date input when date input is null
-        if (dateInput == null) {
-          MessageCli.VENUE_ENTRY.printMessage(
-              allVenues[i][0], allVenues[i][1], allVenues[i][2], allVenues[i][3]);
-
-        }
-        // make a for loop to check if the code exist in bookings and in venues,
-        else {
-          MessageCli.VENUE_ENTRY.printMessage(
-              allVenues[i][0], allVenues[i][1], allVenues[i][2], allVenues[i][3], dateInput);
-        }
+      // create a for loop to print out all the venues dont worry about date
+      for (VenuesCreator venue : allVenues) {
+        MessageCli.VENUE_ENTRY.printMessage(
+            venue.getName(), venue.getCode(), venue.getCapacity(), venue.getHireFee());
       }
     }
   }
@@ -62,20 +47,13 @@ public class VenueHireSystem {
 
   public void createVenue(
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
-
-    // put all the info into a array
-    venue = new String[] {venueName, venueCode, capacityInput, hireFeeInput};
-
-    // checking if the venue code already exists
-    if (numberOfVenues >= 1) {
-      for (int i = 0; i < numberOfVenues; i++) {
-        if (allVenues[i][1].equals(venueCode) == true) {
-          MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(allVenues[i][1], allVenues[0][i]);
-          return;
-        }
+    // check if the venue code already exists
+    for (VenuesCreator venue : allVenues) {
+      if (venue.getCode().equals(venueCode)) {
+        MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(venueCode, venue.getName());
+        return;
       }
     }
-
     // if venue name is empty, print error message
     if (venueName.isEmpty()) {
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
@@ -118,144 +96,22 @@ public class VenueHireSystem {
       return;
     }
 
-    // put the array in a array as the first element and continue increasing the number of venues
-    // intialize allvenue array
-    if (allVenues == null) {
-      allVenues = new String[1][4];
-    }
-    // add one more row to the array
-    else {
-      String[][] temp = allVenues;
-      allVenues = new String[numberOfVenues + 1][4];
-      for (int i = 0; i < numberOfVenues; i++) {
-        allVenues[i] = temp[i];
-      }
-    }
-    // add the new info to the array
-    for (int i = 0; i < venue.length; i++) {
-      allVenues[numberOfVenues][i] = venue[i];
-    }
-    numberOfVenues++;
-
-    // print success message
+    VenuesCreator newVenue = new VenuesCreator(venueName, venueCode, capacityInput, hireFeeInput);
+    // print succesfully created venue meesage
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
+    allVenues.add(newVenue);
   }
 
   public void setSystemDate(String dateInput) {
-    MessageCli.DATE_SET.printMessage(dateInput);
-    this.dateInput = dateInput;
+    // TODO implement this method
   }
 
   public void printSystemDate() {
-    // make a if statement for when dateinut is not set
-    if (dateInput != null) {
-      MessageCli.CURRENT_DATE.printMessage(dateInput);
-    } else {
-      MessageCli.CURRENT_DATE.printMessage("not set");
-    }
+    // TODO implement this method
   }
 
   public void makeBooking(String[] options) {
-    // assign options in more understandable variables
-    String venueCode = options[0];
-    String partyDate = options[1];
-    String customerEmail = options[2];
-    String numberOfAttendees = options[3];
-
-    // if dates are empty
-    if (dateInput == null) {
-      MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
-      return;
-    }
-    // if venues are empty
-    if (allVenues == null) {
-      MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
-      return;
-    }
-    // if the party date in the the past from current system date
-    if (partyDate.compareTo(dateInput) < 0) {
-      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(partyDate, dateInput);
-      return;
-    }
-
-    // if the venue is already booked that day, return a error meesage saying its already booked
-    // that day
-    for (int i = 0; i < numberOfBookings; i++) {
-      if (bookings[i][2].equals(venueCode) && bookings[i][3].equals(partyDate)) {
-        MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(bookings[i][1], partyDate);
-        return;
-      }
-    }
-
-    // print error meesage for when the venue is already booked by comparing the codes in bookings
-    for (int i = 0; i < numberOfBookings; i++) {
-      if (bookings[i][2].equals(venueCode) && bookings[i][3].equals(partyDate)) {
-        MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(bookings[i][1], partyDate);
-        return;
-      }
-    }
-
-    // adjust the number of attendees to at least a quater of the venue size if it less then a
-    // quater of the venue size
-    for (int i = 0; i < numberOfVenues; i++) {
-      if (allVenues[i][1].equals(venueCode)) {
-        if (Integer.parseInt(numberOfAttendees) < Integer.parseInt(allVenues[i][2]) / 4) {
-          numberOfAttendees = Integer.toString(Integer.parseInt(allVenues[i][2]) / 4);
-          MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
-              options[3], numberOfAttendees, allVenues[i][2]);
-        }
-        break;
-      }
-    }
-
-    // adjust the number of attendees to 100% of the venue size if it more then the venue size
-    for (int i = 0; i < numberOfVenues; i++) {
-      if (allVenues[i][1].equals(venueCode)) {
-        if (Integer.parseInt(numberOfAttendees) > Integer.parseInt(allVenues[i][2])) {
-          numberOfAttendees = allVenues[i][2];
-          MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
-              options[3], numberOfAttendees, allVenues[i][2]);
-        }
-        break;
-      }
-    }
-
-    // using BookingReferenceGenerator.generateBookingReference() to generate a booking reference
-    String bookingReference = BookingReferenceGenerator.generateBookingReference();
-    // find the venue name corresponding to the venue code given in options
-    for (int i = 0; i < numberOfVenues; i++) {
-      if (allVenues[i][1].equals(venueCode)) {
-        venueName = allVenues[i][0];
-
-        break;
-      }
-    }
-    // put all the info into a array
-    String[] booking =
-        new String[] {
-          bookingReference, venueName, venueCode, partyDate, numberOfAttendees, customerEmail
-        };
-    // add the new info to the bookings array
-    if (bookings == null) {
-      bookings = new String[1][6];
-    }
-    // add one more row to the array
-    else {
-      String[][] temp = bookings;
-      bookings = new String[numberOfBookings + 1][6];
-      for (int i = 0; i < numberOfBookings; i++) {
-        bookings[i] = temp[i];
-      }
-    }
-    // add the new info to the array
-    for (int i = 0; i < booking.length; i++) {
-      bookings[numberOfBookings][i] = booking[i];
-    }
-    numberOfBookings++;
-
-    // succesfully created venue using MAKE_BOOKING_SUCCESSFUL meesage
-    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
-        bookingReference, venueName, partyDate, numberOfAttendees);
+    // TODO implement this method
   }
 
   public void printBookings(String venueCode) {

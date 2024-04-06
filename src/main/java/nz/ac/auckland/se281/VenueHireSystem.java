@@ -163,6 +163,13 @@ public class VenueHireSystem {
       MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
       return;
     }
+    // print error meesage for when the venue is already booked by comparing the codes in bookings
+    for (int i = 0; i < numberOfBookings; i++) {
+      if (bookings[i][2].equals(venueCode) && bookings[i][3].equals(partyDate)) {
+        MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(bookings[i][1], partyDate);
+        return;
+      }
+    }
 
     // using BookingReferenceGenerator.generateBookingReference() to generate a booking reference
     String bookingReference = BookingReferenceGenerator.generateBookingReference();
@@ -174,7 +181,27 @@ public class VenueHireSystem {
         break;
       }
     }
-    //
+    // put all the info into a array
+    String[] booking =
+        new String[] {bookingReference, venueName, venueCode, partyDate, numberOfAttendees};
+    // add the new info to the bookings array
+    if (bookings == null) {
+      bookings = new String[1][5];
+    }
+    // add one more row to the array
+    else {
+      String[][] temp = bookings;
+      bookings = new String[numberOfBookings + 1][5];
+      for (int i = 0; i < numberOfBookings; i++) {
+        bookings[i] = temp[i];
+      }
+    }
+    // add the new info to the array
+    for (int i = 0; i < booking.length; i++) {
+      bookings[numberOfBookings][i] = booking[i];
+    }
+    numberOfBookings++;
+
     // succesfully created venue using MAKE_BOOKING_SUCCESSFUL meesage
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
         bookingReference, venueName, partyDate, numberOfAttendees);

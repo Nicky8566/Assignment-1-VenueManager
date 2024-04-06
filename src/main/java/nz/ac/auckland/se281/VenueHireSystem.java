@@ -34,8 +34,17 @@ public class VenueHireSystem {
       }
       // create a for loop to print out all the venues
       for (int i = 0; i < numberOfVenues; i++) {
-        MessageCli.VENUE_ENTRY.printMessage(
-            allVenues[i][0], allVenues[i][1], allVenues[i][2], allVenues[i][3]);
+        // make a venue entry meesage without date input when date input is null
+        if (dateInput == null) {
+          MessageCli.VENUE_ENTRY.printMessage(
+              allVenues[i][0], allVenues[i][1], allVenues[i][2], allVenues[i][3]);
+
+        }
+        // make a for loop to check if the code exist in bookings and in venues,
+        else {
+          MessageCli.VENUE_ENTRY.printMessage(
+              allVenues[i][0], allVenues[i][1], allVenues[i][2], allVenues[i][3], dateInput);
+        }
       }
     }
   }
@@ -163,6 +172,21 @@ public class VenueHireSystem {
       MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
       return;
     }
+    // if the party date in the the past from current system date
+    if (partyDate.compareTo(dateInput) < 0) {
+      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(partyDate, dateInput);
+      return;
+    }
+
+    // if the venue is already booked that day, return a error meesage saying its already booked
+    // that day
+    for (int i = 0; i < numberOfBookings; i++) {
+      if (bookings[i][2].equals(venueCode) && bookings[i][3].equals(partyDate)) {
+        MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(bookings[i][1], partyDate);
+        return;
+      }
+    }
+
     // print error meesage for when the venue is already booked by comparing the codes in bookings
     for (int i = 0; i < numberOfBookings; i++) {
       if (bookings[i][2].equals(venueCode) && bookings[i][3].equals(partyDate)) {

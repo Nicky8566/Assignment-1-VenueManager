@@ -138,6 +138,15 @@ public class VenueHireSystem {
       return;
     }
 
+    // if the booking is already made on that day for the venue code print error message
+    for (BookingsCreator booking : allBookings) {
+      if (booking.getVenueCode().equals(venueCode) && booking.getPartyDate().equals(partyDate)) {
+        MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(
+            booking.getVenueName(), booking.getPartyDate());
+        return;
+      }
+    }
+
     // find the venue name corresponding to the given venue code
     String venueName = "";
     for (VenuesCreator venue : allVenues) {

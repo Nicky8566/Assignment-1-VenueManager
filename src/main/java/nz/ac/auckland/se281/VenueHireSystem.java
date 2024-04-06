@@ -120,16 +120,38 @@ public class VenueHireSystem {
   }
 
   public void makeBooking(String[] options) {
+    // assign options to more readable variables
+    String venueCode = options[0];
+    String partyDate = options[1];
+    String customerEmail = options[2];
+    String attendees = options[3];
+
     // booking not made assign the date first
     if (dateInput == null) {
       MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
       return;
     }
+
     // booking not made if there are no venues
     if (allVenues.isEmpty()) {
       MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
       return;
     }
+
+    // find the venue name corresponding to the given venue code
+    String venueName = "";
+    for (VenuesCreator venue : allVenues) {
+      if (venue.getCode().equals(venueCode)) {
+        venueName = venue.getName();
+      }
+    }
+    // create a instance of a booking and put it in the array
+    BookingsCreator newBooking =
+        new BookingsCreator(venueName, venueCode, partyDate, customerEmail, attendees);
+    allBookings.add(newBooking);
+    // print succesful created booking meesage
+    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
+        newBooking.getBookingReference(), venueName, partyDate, attendees);
   }
 
   public void printBookings(String venueCode) {

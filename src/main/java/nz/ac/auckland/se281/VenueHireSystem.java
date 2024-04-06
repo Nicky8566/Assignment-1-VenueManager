@@ -34,6 +34,13 @@ public class VenueHireSystem {
         MessageCli.VENUE_ENTRY.printMessage(
             venue.getName(), venue.getCode(), venue.getCapacity(), venue.getHireFee());
       }
+      // if a dateinput exists, print the venue entry with the date input
+      if (dateInput != null) {
+        for (VenuesCreator venue : allVenues) {
+          MessageCli.VENUE_ENTRY.printMessage(
+              venue.getName(), venue.getCode(), venue.getCapacity(), venue.getHireFee(), dateInput);
+        }
+      }
     }
   }
 
@@ -157,6 +164,18 @@ public class VenueHireSystem {
               Integer.toString(Integer.parseInt(venue.getCapacity()) / 4),
               venue.getCapacity());
           attendees = Integer.toString(Integer.parseInt(venue.getCapacity()) / 4);
+        }
+      }
+    }
+
+    // if the number of attendees is greater then the venue capacity make the number of attendess
+    // the max capcity
+    for (VenuesCreator venue : allVenues) {
+      if (venue.getCode().equals(venueCode)) {
+        if (Integer.parseInt(attendees) > Integer.parseInt(venue.getCapacity())) {
+          MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
+              attendees, venue.getCapacity(), venue.getCapacity());
+          attendees = venue.getCapacity();
         }
       }
     }

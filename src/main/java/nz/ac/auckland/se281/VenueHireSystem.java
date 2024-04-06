@@ -5,10 +5,13 @@ import nz.ac.auckland.se281.Types.CateringType;
 import nz.ac.auckland.se281.Types.FloralType;
 
 public class VenueHireSystem {
-  private ArrayList<VenuesCreator> allVenues = new ArrayList<VenuesCreator>();
+  protected ArrayList<VenuesCreator> allVenues = new ArrayList<VenuesCreator>();
+  protected ArrayList<BookingsCreator> allBookings = new ArrayList<BookingsCreator>();
+  protected String dateInput;
 
   public VenueHireSystem() {
     allVenues = new ArrayList<>();
+    allBookings = new ArrayList<>();
   }
 
   public void printVenues() {
@@ -103,15 +106,28 @@ public class VenueHireSystem {
   }
 
   public void setSystemDate(String dateInput) {
-    // TODO implement this method
+    MessageCli.DATE_SET.printMessage(dateInput);
+    this.dateInput = dateInput;
   }
 
   public void printSystemDate() {
-    // TODO implement this method
+    // make a if statement for when dateinut is not set
+    if (dateInput != null) {
+      MessageCli.CURRENT_DATE.printMessage(dateInput);
+    } else {
+      MessageCli.CURRENT_DATE.printMessage("not set");
+    }
   }
 
   public void makeBooking(String[] options) {
-    // TODO implement this method
+    BookingsCreator newBooking = new BookingsCreator(options);
+    // print succesfully created venue meesage
+    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
+        newBooking.getReference(),
+        newBooking.getVenueName(),
+        newBooking.getPartyDate(),
+        newBooking.getNumberOfAttendees());
+    allBookings.add(newBooking);
   }
 
   public void printBookings(String venueCode) {

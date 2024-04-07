@@ -52,7 +52,11 @@ public class BookingsCreator extends VenueHireSystem {
 
   // make a setter for getting next current date
   public void setNextAviableDate(String partyDate) {
-    this.nextAvaiabledDate = nextDate(partyDate);
+    this.nextAvaiabledDate = partyDate;
+  }
+
+  public void setPartyDate(String partyDate) {
+    this.partyDate = partyDate;
   }
 
   // make a setter for getting next current date

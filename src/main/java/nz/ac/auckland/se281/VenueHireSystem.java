@@ -14,6 +14,15 @@ public class VenueHireSystem {
     allBookings = new ArrayList<>();
   }
 
+  private boolean isDateBooked(String date) {
+    for (BookingsCreator booking : allBookings) {
+      if (booking.getPartyDate().equals(date)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public void printVenues() {
     // if theres no venues in all venues print error meesages
     if (allVenues.isEmpty()) {
@@ -29,17 +38,35 @@ public class VenueHireSystem {
       } else if (allVenues.size() >= 10) {
         MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(allVenues.size()), "s");
       }
+    }
+
+    // create a for loop to print out all the venuses with the next avaible date
+    for (VenuesCreator venue : allVenues) {
+      for (BookingsCreator booking : allBookings) {
+        if (booking.getVenueCode().equals(venue.getCode())
+            && (isDateBooked(booking.getNextAvaiableDate()))) {
+          // print the meesage
+          MessageCli.VENUE_ENTRY.printMessage(
+              venue.getName(),
+              venue.getCode(),
+              venue.getCapacity(),
+              venue.getHireFee(),
+              booking.getNextAvaiableDate());
+        }
+      }
+    }
+
+    // if a dateinput exists, print the venue entry with the date
+    if (dateInput != null && allBookings.isEmpty()) {
+      for (VenuesCreator venue : allVenues) {
+        MessageCli.VENUE_ENTRY.printMessage(
+            venue.getName(), venue.getCode(), venue.getCapacity(), venue.getHireFee(), dateInput);
+      }
+    } else if (dateInput == null) {
       // create a for loop to print out all the venues dont worry about date
       for (VenuesCreator venue : allVenues) {
         MessageCli.VENUE_ENTRY.printMessage(
             venue.getName(), venue.getCode(), venue.getCapacity(), venue.getHireFee());
-      }
-      // if a dateinput exists, print the venue entry with the date input
-      if (dateInput != null) {
-        for (VenuesCreator venue : allVenues) {
-          MessageCli.VENUE_ENTRY.printMessage(
-              venue.getName(), venue.getCode(), venue.getCapacity(), venue.getHireFee(), dateInput);
-        }
       }
     }
   }
@@ -197,7 +224,31 @@ public class VenueHireSystem {
   }
 
   public void printBookings(String venueCode) {
-    // TODO implement this method
+    // if the venue code does not exist print error message
+    boolean venueExists = false;
+    for (VenuesCreator venue : allVenues) {
+      if (venue.getCode().equals(venueCode)) {
+        venueExists = true;
+      }
+    }
+    if (!venueExists) {
+      MessageCli.PRINT_BOOKINGS_VENUE_NOT_FOUND.printMessage(venueCode);
+      return;
+    }
+
+    // print the bookings for the venue code
+    MessageCli.PRINT_BOOKINGS_HEADER.printMessage(venueCode);
+    boolean bookingExists = false;
+    for (BookingsCreator booking : allBookings) {
+      if (booking.getVenueCode().equals(venueCode)) {
+        MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(
+            booking.getBookingReference(), booking.getPartyDate());
+        bookingExists = true;
+      }
+    }
+    if (!bookingExists) {
+      MessageCli.PRINT_BOOKINGS_NONE.printMessage(venueCode);
+    }
   }
 
   public void addCateringService(String bookingReference, CateringType cateringType) {

@@ -14,15 +14,6 @@ public class VenueHireSystem {
     allBookings = new ArrayList<>();
   }
 
-  private boolean isDateBooked(String date) {
-    for (BookingsCreator booking : allBookings) {
-      if (booking.getPartyDate().equals(date)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   public void printVenues() {
     // if theres no venues in all venues print error meesages
     if (allVenues.isEmpty()) {
@@ -43,8 +34,7 @@ public class VenueHireSystem {
     // create a for loop to print out all the venuses with the next avaible date
     for (VenuesCreator venue : allVenues) {
       for (BookingsCreator booking : allBookings) {
-        if (booking.getVenueCode().equals(venue.getCode())
-            && (isDateBooked(booking.getNextAvaiableDate()))) {
+        if (booking.getVenueCode().equals(venue.getCode())) {
           // print the meesage
           MessageCli.VENUE_ENTRY.printMessage(
               venue.getName(),

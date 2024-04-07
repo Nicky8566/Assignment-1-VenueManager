@@ -19,12 +19,7 @@ public class BookingsCreator extends VenueHireSystem {
     this.customerEmail = customerEmail;
     this.numberOfAttendees = numberOfAttendees;
     this.venueName = venueName;
-    this.nextAvaiabledDate = nextDate(partyDate);
-    for (BookingsCreator booking : allBookings) {
-      if (booking.getVenueCode().equals(venueCode)) {
-        this.nextAvaiabledDate = booking.nextDate(booking.getPartyDate());
-      }
-    }
+    this.nextAvaiabledDate = nextDate(this.partyDate);
   }
 
   public String getBookingReference() {
@@ -36,7 +31,7 @@ public class BookingsCreator extends VenueHireSystem {
   }
 
   public String getPartyDate() {
-    return partyDate;
+    return this.partyDate;
   }
 
   public String getCustomerEmail() {
@@ -52,7 +47,12 @@ public class BookingsCreator extends VenueHireSystem {
   }
 
   public String getNextAvaiableDate() {
-    return nextAvaiabledDate;
+    return this.nextAvaiabledDate;
+  }
+
+  // make a setter for getting next current date
+  public void setNextAviableDate(String partyDate) {
+    this.nextAvaiabledDate = nextDate(partyDate);
   }
 
   // make a setter for getting next current date

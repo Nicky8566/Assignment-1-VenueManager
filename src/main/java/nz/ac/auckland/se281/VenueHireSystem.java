@@ -281,11 +281,52 @@ public class VenueHireSystem {
   }
 
   public void addServiceMusic(String bookingReference) {
-    // TODO implement this method
+    String meesage = String.format("Music");
+
+    if (allBookings.isEmpty()) {
+      MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
+      return;
+    }
+
+    for (BookingsCreator booking : allBookings) {
+      if (booking.getBookingReference().equals(bookingReference)) {
+        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(meesage, bookingReference);
+        Music newMusic = new Music(booking);
+        newMusic.addingServices();
+        return;
+      } else {
+        MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
+      }
+    }
   }
 
   public void addServiceFloral(String bookingReference, FloralType floralType) {
-    // TODO implement this method
+    String meesage = String.format("Floral (%s)", floralType.getName());
+
+    if (allBookings.isEmpty()) {
+      MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
+      return;
+    }
+
+    for (BookingsCreator booking : allBookings) {
+      if (booking.getBookingReference().equals(bookingReference)) {
+        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(meesage, bookingReference);
+        Floral newFloral = new Floral(booking, floralType);
+        newFloral.addingServices();
+        return;
+      } else {
+        MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
+      }
+    }
+  }
+
+  public VenuesCreator getVenue(String venueCode) {
+    for (VenuesCreator venue : allVenues) {
+      if (venue.getCode().equals(venueCode)) {
+        return venue;
+      }
+    }
+    return null;
   }
 
   public void viewInvoice(String bookingReference) {
@@ -300,6 +341,7 @@ public class VenueHireSystem {
         break;
       }
     }
+
     if (bookingValid) {
       currentBookingServices = currentBooking.getBookingServices();
       // grab all the info out
@@ -308,7 +350,7 @@ public class VenueHireSystem {
       String numberOfAttendees = currentBooking.getNumberOfAttendees();
       String venueName = currentBooking.getVenueName();
       String venueCode = currentBooking.getVenueCode();
-      int venueHireFee = 0;
+      int venueHireFee = Integer.parseInt(getVenue(venueCode).getHireFee());
       int cateringCost = 0;
       int musicCost = 0;
       int floralCost = 0;
@@ -323,6 +365,7 @@ public class VenueHireSystem {
           floralCost = service.getCost();
         }
       }
+
       MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(
           bookingReference, customerEmail, dateInput, partyDate, numberOfAttendees, venueName);
       MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(Integer.toString(venueHireFee));

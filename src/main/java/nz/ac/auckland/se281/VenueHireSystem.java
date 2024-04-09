@@ -31,26 +31,17 @@ public class VenueHireSystem {
       }
     }
 
-    // create a for loop to print out all the venuses with the next avaible date
-    for (VenuesCreator venue : allVenues) {
-      for (BookingsCreator booking : allBookings) {
-        if (booking.getVenueCode().equals(venue.getCode())) {
-          // print the meesage
-          MessageCli.VENUE_ENTRY.printMessage(
-              venue.getName(),
-              venue.getCode(),
-              venue.getCapacity(),
-              venue.getHireFee(),
-              booking.getNextAvaiableDate());
-        }
-      }
-    }
+    //
 
     // if a dateinput exists, print the venue entry with the date
-    if (dateInput != null && allBookings.isEmpty()) {
+    if (dateInput != null) {
       for (VenuesCreator venue : allVenues) {
         MessageCli.VENUE_ENTRY.printMessage(
-            venue.getName(), venue.getCode(), venue.getCapacity(), venue.getHireFee(), dateInput);
+            venue.getName(),
+            venue.getCode(),
+            venue.getCapacity(),
+            venue.getHireFee(),
+            venue.nextDate(dateInput));
       }
     } else if (dateInput == null) {
       // create a for loop to print out all the venues dont worry about date
@@ -123,7 +114,8 @@ public class VenueHireSystem {
       return;
     }
 
-    VenuesCreator newVenue = new VenuesCreator(venueName, venueCode, capacityInput, hireFeeInput);
+    VenuesCreator newVenue =
+        new VenuesCreator(venueName, venueCode, capacityInput, hireFeeInput, new ArrayList<>());
     // print succesfully created venue meesage
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
     allVenues.add(newVenue);
@@ -149,6 +141,9 @@ public class VenueHireSystem {
     String partyDate = options[1];
     String customerEmail = options[2];
     String attendees = options[3];
+    VenuesCreator requiredVenue = null;
+
+    ArrayList<BookingsCreator> requiredVenueBookings = new ArrayList<>();
 
     // booking not made assign the date first
     if (dateInput == null) {
@@ -160,6 +155,24 @@ public class VenueHireSystem {
     if (allVenues.isEmpty()) {
       MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
       return;
+    }
+
+    // go through for loop for venues
+    for (VenuesCreator venue : allVenues) {
+      // if venue. get code is equal to given venue code
+      if (venue.getCode().equals(venueCode)) {
+        // if the date is less then the current date, print error message
+        requiredVenue = venue;
+        break;
+      }
+    }
+    // check if the code exists
+    if (requiredVenue == null) {
+      MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(venueCode);
+      return;
+    } else {
+      String venueName = requiredVenue.getName();
+      requiredVenueBookings = requiredVenue.getVenueBookings();
     }
 
     // if the booking is already made on that day for the venue code print error message
@@ -204,10 +217,12 @@ public class VenueHireSystem {
         venueName = venue.getName();
       }
     }
+
     // create a instance of a booking and put it in the array
     BookingsCreator newBooking =
         new BookingsCreator(venueName, venueCode, partyDate, customerEmail, attendees);
     allBookings.add(newBooking);
+    requiredVenue.addBooking(newBooking);
     // print succesful created booking meesage
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
         newBooking.getBookingReference(), venueName, partyDate, attendees);

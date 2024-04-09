@@ -1,7 +1,6 @@
 package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
-import nz.ac.auckland.se281.Types.CateringType;
 import nz.ac.auckland.se281.Types.FloralType;
 
 public class VenueHireSystem {
@@ -261,12 +260,20 @@ public class VenueHireSystem {
   }
 
   public void addCateringService(String bookingReference, CateringType cateringType) {
+    // if booking refence exist, print error meesage
+    for (BookingsCreator booking : allBookings) {
+      if (booking.getBookingReference().equals(bookingReference)) {
+        // print succesful meesage
+        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(cateringType.toString(), bookingReference);
+      }
+    }
+
     // if booking refence dosen't exist, print error meesage
     for (BookingsCreator booking : allBookings) {
       if (!booking.getBookingReference().equals(bookingReference)) {
+        // print succesful meesage
         MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage(
-            cateringType.getName(), bookingReference);
-        return;
+            cateringType.toString(), bookingReference);
       }
     }
   }

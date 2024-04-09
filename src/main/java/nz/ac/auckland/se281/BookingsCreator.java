@@ -28,7 +28,7 @@ public class BookingsCreator extends VenueHireSystem {
   }
 
   public String getBookingReference() {
-    return BookingReferenceGenerator.generateBookingReference();
+    return this.refernce;
   }
 
   public String getVenueCode() {

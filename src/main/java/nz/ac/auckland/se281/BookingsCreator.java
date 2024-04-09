@@ -7,6 +7,7 @@ public class BookingsCreator extends VenueHireSystem {
   private String numberOfAttendees;
   private String venueName;
   private String nextAvaiabledDate;
+  private String refernce;
 
   public BookingsCreator(
       String venueName,
@@ -19,10 +20,15 @@ public class BookingsCreator extends VenueHireSystem {
     this.customerEmail = customerEmail;
     this.numberOfAttendees = numberOfAttendees;
     this.venueName = venueName;
+    this.refernce = setBookingReference();
+  }
+
+  public String setBookingReference() {
+    return BookingReferenceGenerator.generateBookingReference();
   }
 
   public String getBookingReference() {
-    return BookingReferenceGenerator.generateBookingReference();
+    return this.refernce;
   }
 
   public String getVenueCode() {

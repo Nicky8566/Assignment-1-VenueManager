@@ -7,7 +7,7 @@ public class VenuesCreator extends VenueHireSystem {
   private String code;
   private String capacity;
   private String hireFee;
-  // make a array list for booking for this particular venue
+  // make a array list for all booking objects for this particular venue
   private ArrayList<BookingsCreator> venueBookings = new ArrayList<>();
 
   public VenuesCreator(

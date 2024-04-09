@@ -171,7 +171,6 @@ public class VenueHireSystem {
       MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(venueCode);
       return;
     } else {
-      String venueName = requiredVenue.getName();
       requiredVenueBookings = requiredVenue.getVenueBookings();
     }
 
@@ -231,28 +230,33 @@ public class VenueHireSystem {
   public void printBookings(String venueCode) {
     // if the venue code does not exist print error message
     boolean venueExists = false;
+    VenuesCreator requiredVenue = null;
+    ArrayList<BookingsCreator> requiredVenueBookings = new ArrayList<BookingsCreator>();
+
     for (VenuesCreator venue : allVenues) {
       if (venue.getCode().equals(venueCode)) {
         venueExists = true;
+        requiredVenue = venue;
+        break;
       }
     }
     if (!venueExists) {
       MessageCli.PRINT_BOOKINGS_VENUE_NOT_FOUND.printMessage(venueCode);
       return;
+    } else {
+      requiredVenueBookings = requiredVenue.getVenueBookings();
+    }
+    if (requiredVenue.getVenueBookings().isEmpty()) {
+      MessageCli.PRINT_BOOKINGS_HEADER.printMessage(requiredVenue.getName());
+      MessageCli.PRINT_BOOKINGS_NONE.printMessage(requiredVenue.getName());
+      return;
     }
 
-    // print the bookings for the venue code
-    MessageCli.PRINT_BOOKINGS_HEADER.printMessage(venueCode);
-    boolean bookingExists = false;
-    for (BookingsCreator booking : allBookings) {
-      if (booking.getVenueCode().equals(venueCode)) {
-        MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(
-            booking.getBookingReference(), booking.getPartyDate());
-        bookingExists = true;
-      }
-    }
-    if (!bookingExists) {
-      MessageCli.PRINT_BOOKINGS_NONE.printMessage(venueCode);
+    MessageCli.PRINT_BOOKINGS_HEADER.printMessage(requiredVenue.getName());
+    // print all the venues in the venue array
+    for (BookingsCreator booking : requiredVenueBookings) {
+      MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(
+          booking.getBookingReference(), booking.getPartyDate());
     }
   }
 

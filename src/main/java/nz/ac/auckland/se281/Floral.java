@@ -16,13 +16,13 @@ public class Floral extends Services{
   }
   @Override
   public int getCost(){
-    return this.floralType.getCost();
+    return floralType.getCost();
 
 
   }
   @Override
   public String getName(){
-    return this.floralType.getName();
+    return floralType.getName();
 
   }
   

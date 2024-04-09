@@ -329,7 +329,7 @@ public class VenueHireSystem {
   public void viewInvoice(String bookingReference) {
     BookingsCreator currentBooking = null;
     boolean bookingValid = false;
-    ArrayList<Services> currentBookingServices = new ArrayList<Services>();
+    
     // cehck if the refernces are equal
     for (BookingsCreator booking : allBookings) {
       if (booking.getBookingReference().equals(bookingReference)) {
@@ -340,7 +340,7 @@ public class VenueHireSystem {
     }
 
     if (bookingValid) {
-      currentBookingServices = currentBooking.getBookingServices();
+      
       // grab all the info out
       String customerEmail = currentBooking.getCustomerEmail();
       String partyDate = currentBooking.getPartyDate();
@@ -351,16 +351,20 @@ public class VenueHireSystem {
       int cateringCost = 0;
       int musicCost = 0;
       int floralCost = 0;
-      for (Services service : currentBookingServices) {
+      String cateringinfo = "";
+      String floralInfo = "";
+      for (Services service : currentBooking.getBookingServices()) {
 
-        if (service instanceof Music) {
-          cateringCost = service.getCost();
+        if (service instanceof Catering) {
+          cateringCost += service.getCost();
+          cateringinfo = service.getName();
         }
         if (service instanceof Music) {
-          musicCost = service.getCost();
+          musicCost += service.getCost();
         }
-        if (service instanceof Music) {
-          floralCost = service.getCost();
+        if (service instanceof Floral) {
+          floralCost += service.getCost();
+          floralInfo = service.getName();
         }
       }
       int totalCost = venueHireFee + cateringCost + musicCost + floralCost;
@@ -368,9 +372,9 @@ public class VenueHireSystem {
       MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(
           bookingReference, customerEmail, dateInput, partyDate, numberOfAttendees, venueName);
       MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(Integer.toString(venueHireFee));
-      MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(Integer.toString(cateringCost));
+      MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(cateringinfo, Integer.toString(cateringCost));
       MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage(Integer.toString(musicCost));
-      MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(Integer.toString(floralCost));
+      MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(floralInfo, Integer.toString(floralCost));
       MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(Integer.toString(totalCost));
     }
   }

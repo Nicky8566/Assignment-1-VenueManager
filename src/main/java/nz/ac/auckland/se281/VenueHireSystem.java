@@ -271,6 +271,8 @@ public class VenueHireSystem {
     for (BookingsCreator booking : allBookings) {
       if (booking.getBookingReference().equals(bookingReference)) {
         MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(meesage, bookingReference);
+        Catering newCatering = new Catering(booking, cateringType);
+        newCatering.addingServices();
         return;
       } else {
         MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
@@ -287,6 +289,46 @@ public class VenueHireSystem {
   }
 
   public void viewInvoice(String bookingReference) {
-    // TODO implement this method
+    BookingsCreator currentBooking = null;
+    boolean bookingValid = false;
+    ArrayList<Services> currentBookingServices = new ArrayList<Services>();
+    // cehck if the refernces are equal
+    for (BookingsCreator booking : allBookings) {
+      if (booking.getBookingReference().equals(bookingReference)) {
+        bookingValid = true;
+        currentBooking = booking;
+        break;
+      }
+    }
+    if (bookingValid) {
+      currentBookingServices = currentBooking.getBookingServices();
+      // grab all the info out
+      String customerEmail = currentBooking.getCustomerEmail();
+      String partyDate = currentBooking.getPartyDate();
+      String numberOfAttendees = currentBooking.getNumberOfAttendees();
+      String venueName = currentBooking.getVenueName();
+      String venueCode = currentBooking.getVenueCode();
+      int venueHireFee = 0;
+      int cateringCost = 0;
+      int musicCost = 0;
+      int floralCost = 0;
+      for (Services service : currentBookingServices) {
+        if (service instanceof Catering) {
+          cateringCost = service.getCost();
+        }
+        if (service instanceof Music) {
+          musicCost = service.getCost();
+        }
+        if (service instanceof Floral) {
+          floralCost = service.getCost();
+        }
+      }
+      MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(
+          bookingReference, customerEmail, dateInput, partyDate, numberOfAttendees, venueName);
+      MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(Integer.toString(venueHireFee));
+      MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(Integer.toString(cateringCost));
+      MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage(Integer.toString(musicCost));
+      MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(Integer.toString(floralCost));
+    }
   }
 }

@@ -12,4 +12,8 @@ public abstract class Services {
   public abstract int getCost();
 
   public abstract String getName();
+
+  public BookingsCreator getCurrentBooking() {
+  return this.currentBooking;
+  }
 }

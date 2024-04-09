@@ -11,6 +11,7 @@ public class BookingsCreator extends VenueHireSystem {
   private String refernce;
   private ArrayList<Services> bookingServices = new ArrayList<Services>();
 
+
   public BookingsCreator(
       String venueName,
       String venueCode,
@@ -35,7 +36,7 @@ public class BookingsCreator extends VenueHireSystem {
   }
 
   public String getVenueCode() {
-    return venueCode;
+    return this.venueCode;
   }
 
   public String getPartyDate() {
@@ -43,11 +44,11 @@ public class BookingsCreator extends VenueHireSystem {
   }
 
   public String getCustomerEmail() {
-    return customerEmail;
+    return this.customerEmail;
   }
 
   public String getNumberOfAttendees() {
-    return numberOfAttendees;
+    return this.numberOfAttendees;
   }
 
   public String getVenueName() {
@@ -68,7 +69,7 @@ public class BookingsCreator extends VenueHireSystem {
   }
 
   public ArrayList<Services> getBookingServices() {
-    return this.bookingServices;
+    return bookingServices;
   }
 
   public void addServices(Services services) {

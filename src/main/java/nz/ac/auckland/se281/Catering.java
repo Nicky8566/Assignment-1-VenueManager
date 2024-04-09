@@ -14,6 +14,7 @@ public class Catering extends Services {
   public void addingServices(){
     currentBooking.addServices(this);
   }
+  
   @Override
   public int getCost(){
     return this.cateringType.getCostPerPerson() * Integer.parseInt(currentBooking.getNumberOfAttendees());

@@ -1,6 +1,7 @@
 package nz.ac.auckland.se281;
-
+import java.util.ArrayList;
 public class BookingsCreator extends VenueHireSystem {
+   // make a array list for all booking objects for this particular venue
   private String venueCode;
   private String partyDate;
   private String customerEmail;
@@ -8,6 +9,7 @@ public class BookingsCreator extends VenueHireSystem {
   private String venueName;
   private String nextAvaiabledDate;
   private String refernce;
+  private ArrayList<Services> bookingServices = new ArrayList<Services>();
 
   public BookingsCreator(
       String venueName,
@@ -21,6 +23,7 @@ public class BookingsCreator extends VenueHireSystem {
     this.numberOfAttendees = numberOfAttendees;
     this.venueName = venueName;
     this.refernce = setBookingReference();
+
   }
 
   public String setBookingReference() {
@@ -62,5 +65,13 @@ public class BookingsCreator extends VenueHireSystem {
 
   public void setPartyDate(String partyDate) {
     this.partyDate = partyDate;
+  }
+
+  public ArrayList<Services> getBookingServices() {
+    return this.bookingServices;
+  }
+
+  public void addServices(Services services) {
+    bookingServices.add(services);
   }
 }

@@ -1,7 +1,7 @@
 package nz.ac.auckland.se281;
 
 public abstract class Services {
-  private BookingsCreator currentBooking;
+  protected BookingsCreator currentBooking;
 
   public Services(BookingsCreator currentBooking) {
     this.currentBooking = currentBooking;
@@ -9,7 +9,7 @@ public abstract class Services {
 
   public abstract void addingServices();
 
-  public abstract void getCost();
+  public abstract int getCost();
 
-  public abstract void getName();
+  public abstract String getName();
 }

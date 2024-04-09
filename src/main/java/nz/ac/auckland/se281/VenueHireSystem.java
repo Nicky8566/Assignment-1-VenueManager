@@ -261,7 +261,14 @@ public class VenueHireSystem {
   }
 
   public void addCateringService(String bookingReference, CateringType cateringType) {
-    // TODO implement this method
+    // if booking refence dosen't exist, print error meesage
+    for (BookingsCreator booking : allBookings) {
+      if (!booking.getBookingReference().equals(bookingReference)) {
+        MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage(
+            cateringType.getName(), bookingReference);
+        return;
+      }
+    }
   }
 
   public void addServiceMusic(String bookingReference) {

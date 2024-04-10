@@ -1,6 +1,6 @@
 package nz.ac.auckland.se281;
 import java.util.ArrayList;
-public class BookingsCreator extends VenueHireSystem {
+public class BookingsCreator  {
    // make a array list for all booking objects for this particular venue
   private String venueCode;
   private String partyDate;

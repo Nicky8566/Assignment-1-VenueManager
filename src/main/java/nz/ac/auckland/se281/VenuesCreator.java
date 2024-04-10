@@ -2,7 +2,7 @@ package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
 
-public class VenuesCreator extends VenueHireSystem {
+public class VenuesCreator  {
   private String name;
   private String code;
   private String capacity;

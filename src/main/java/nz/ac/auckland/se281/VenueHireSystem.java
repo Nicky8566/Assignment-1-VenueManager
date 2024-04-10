@@ -136,16 +136,19 @@ public class VenueHireSystem {
   }
 
   public boolean isDateInThePast(String partyDate) {
+    // splitting and grabbing the party date day, month and year
     String[] partyDateParts = partyDate.split("/");
     int partyDay = Integer.parseInt(partyDateParts[0]);
     int partyMonth = Integer.parseInt(partyDateParts[1]);
     int partyYear = Integer.parseInt(partyDateParts[2]);
 
+    // splitting and grabbing the system date day, month and year
     String[] systemDateParts = dateInput.split("/");
     int systemDay = Integer.parseInt(systemDateParts[0]);
     int systemMonth = Integer.parseInt(systemDateParts[1]);
     int systemYear = Integer.parseInt(systemDateParts[2]);
 
+    // check if the system date parts is bigger then party date parts
     if (partyYear < systemYear) {
       MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(partyDate, dateInput);
       return true;
@@ -302,7 +305,7 @@ public class VenueHireSystem {
 
   public void addCateringService(String bookingReference, CateringType cateringType) {
     String meesage = String.format("Catering (%s)", cateringType.getName());
-    
+
     // if there are no bookings print error message
     if (allBookings.isEmpty()) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
@@ -317,7 +320,7 @@ public class VenueHireSystem {
         newCatering.addingServices();
         return;
       }
-      // else is the booking with the refernce is not found print error message 
+      // else is the booking with the refernce is not found print error message
       else {
         MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
         return;
@@ -327,7 +330,7 @@ public class VenueHireSystem {
 
   public void addServiceMusic(String bookingReference) {
     String meesage = String.format("Music");
-    
+
     // if there are no bookings print error message
     if (allBookings.isEmpty()) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
@@ -342,7 +345,7 @@ public class VenueHireSystem {
         newMusic.addingServices();
         return;
       }
-      // else is the booking with the refernce is not found print error message  
+      // else is the booking with the refernce is not found print error message
       else {
         MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
         return;
@@ -367,7 +370,7 @@ public class VenueHireSystem {
         newFloral.addingServices();
         return;
       }
-      // else is the booking with the refernce is not found print error message  
+      // else is the booking with the refernce is not found print error message
       else {
         MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
         return;
@@ -417,7 +420,7 @@ public class VenueHireSystem {
         }
       }
       int totalCost = venueHireFee + cateringCost + musicCost + floralCost;
-      
+
       // the huge invoice print statement
       MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(
           bookingReference, customerEmail, dateInput, partyDate, numberOfAttendees, venueName);
@@ -430,7 +433,7 @@ public class VenueHireSystem {
       MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(Integer.toString(totalCost));
 
     }
-    // if the booking is not valid print error message 
+    // if the booking is not valid print error message
     else if (bookingValid == false) {
       MessageCli.VIEW_INVOICE_BOOKING_NOT_FOUND.printMessage(bookingReference);
     }

@@ -1,28 +1,23 @@
 package nz.ac.auckland.se281;
 
-
 public class Music extends Services {
-
 
   public Music(BookingsCreator currentBooking) {
     super(currentBooking);
   }
 
-
   @Override
-  public void addingServices(){
+  public void addingServices() {
     currentBooking.addServices(this);
   }
+
   @Override
-  public int getCost(){
+  public int getCost() {
     return 500;
-
   }
+
   @Override
-  public String getName(){
+  public String getName() {
     return "Music";
-
   }
-  
- 
 }

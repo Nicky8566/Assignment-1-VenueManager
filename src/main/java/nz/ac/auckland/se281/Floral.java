@@ -1,7 +1,8 @@
 package nz.ac.auckland.se281;
+
 import nz.ac.auckland.se281.Types.FloralType;
 
-public class Floral extends Services{
+public class Floral extends Services {
   private FloralType floralType;
 
   public Floral(BookingsCreator currentBooking, FloralType floralType) {
@@ -9,21 +10,18 @@ public class Floral extends Services{
     this.floralType = floralType;
   }
 
-
   @Override
-  public void addingServices(){
+  public void addingServices() {
     currentBooking.addServices(this);
   }
+
   @Override
-  public int getCost(){
+  public int getCost() {
     return floralType.getCost();
-
-
   }
+
   @Override
-  public String getName(){
+  public String getName() {
     return floralType.getName();
-
   }
-  
 }

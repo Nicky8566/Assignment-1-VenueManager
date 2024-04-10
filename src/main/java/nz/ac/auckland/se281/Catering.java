@@ -1,4 +1,5 @@
 package nz.ac.auckland.se281;
+
 import nz.ac.auckland.se281.Types.CateringType;
 
 public class Catering extends Services {
@@ -9,20 +10,19 @@ public class Catering extends Services {
     this.cateringType = cateringType;
   }
 
-
   @Override
-  public void addingServices(){
+  public void addingServices() {
     currentBooking.addServices(this);
   }
-  
-  @Override
-  public int getCost(){
-    return cateringType.getCostPerPerson() * Integer.parseInt(currentBooking.getNumberOfAttendees());
 
+  @Override
+  public int getCost() {
+    return cateringType.getCostPerPerson()
+        * Integer.parseInt(currentBooking.getNumberOfAttendees());
   }
-  @Override
-  public String getName(){
-    return cateringType.getName();
 
+  @Override
+  public String getName() {
+    return cateringType.getName();
   }
 }

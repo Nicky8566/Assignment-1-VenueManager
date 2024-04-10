@@ -134,6 +134,33 @@ public class VenueHireSystem {
       MessageCli.CURRENT_DATE.printMessage("not set");
     }
   }
+  public boolean isDateInThePast(String partyDate){
+    String[] partyDateParts = partyDate.split("/");
+    int partyDay = Integer.parseInt(partyDateParts[0]);
+    int partyMonth = Integer.parseInt(partyDateParts[1]);
+    int partyYear = Integer.parseInt(partyDateParts[2]);
+
+    String[] systemDateParts = dateInput.split("/");
+    int systemDay = Integer.parseInt(systemDateParts[0]);
+    int systemMonth = Integer.parseInt(systemDateParts[1]);
+    int systemYear = Integer.parseInt(systemDateParts[2]);
+
+    if (partyYear < systemYear) {
+      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(partyDate, dateInput);
+      return true;
+    }
+    else if (partyMonth < systemMonth) {
+      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(partyDate, dateInput);
+      return true;
+    }
+    else if (partyDay < systemDay) {
+      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(partyDate, dateInput);
+      return true;
+    }
+    return false;
+
+
+  }
 
   public void makeBooking(String[] options) {
     // assign options to more readable variables
@@ -170,6 +197,7 @@ public class VenueHireSystem {
     if (requiredVenue == null) {
       MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(venueCode);
       return;
+
     } else {
       requiredVenueBookings = requiredVenue.getVenueBookings();
     }
@@ -181,6 +209,12 @@ public class VenueHireSystem {
             booking.getVenueName(), booking.getPartyDate());
         return;
       }
+    }
+
+    // check if date is in the past
+    boolean datevalid = isDateInThePast(partyDate);
+    if(datevalid){
+      return;
     }
 
     // if the number of attendes it less then a quater of the venue size, make the number of
@@ -248,6 +282,7 @@ public class VenueHireSystem {
         requiredVenue = venue;
         break;
       }
+      
     }
     if (!venueExists) {
       MessageCli.PRINT_BOOKINGS_VENUE_NOT_FOUND.printMessage(venueCode);

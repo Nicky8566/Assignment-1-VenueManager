@@ -134,7 +134,8 @@ public class VenueHireSystem {
       MessageCli.CURRENT_DATE.printMessage("not set");
     }
   }
-  public boolean isDateInThePast(String partyDate){
+
+  public boolean isDateInThePast(String partyDate) {
     String[] partyDateParts = partyDate.split("/");
     int partyDay = Integer.parseInt(partyDateParts[0]);
     int partyMonth = Integer.parseInt(partyDateParts[1]);
@@ -148,18 +149,14 @@ public class VenueHireSystem {
     if (partyYear < systemYear) {
       MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(partyDate, dateInput);
       return true;
-    }
-    else if (partyMonth < systemMonth) {
+    } else if (partyMonth < systemMonth) {
       MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(partyDate, dateInput);
       return true;
-    }
-    else if (partyDay < systemDay) {
+    } else if (partyDay < systemDay) {
       MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(partyDate, dateInput);
       return true;
     }
     return false;
-
-
   }
 
   public void makeBooking(String[] options) {
@@ -213,7 +210,7 @@ public class VenueHireSystem {
 
     // check if date is in the past
     boolean datevalid = isDateInThePast(partyDate);
-    if(datevalid){
+    if (datevalid) {
       return;
     }
 
@@ -282,7 +279,6 @@ public class VenueHireSystem {
         requiredVenue = venue;
         break;
       }
-      
     }
     if (!venueExists) {
       MessageCli.PRINT_BOOKINGS_VENUE_NOT_FOUND.printMessage(venueCode);
@@ -318,6 +314,9 @@ public class VenueHireSystem {
         Catering newCatering = new Catering(booking, cateringType);
         newCatering.addingServices();
         return;
+      } else {
+        MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
+        return;
       }
     }
     MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
@@ -336,6 +335,9 @@ public class VenueHireSystem {
         MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(meesage, bookingReference);
         Music newMusic = new Music(booking);
         newMusic.addingServices();
+        return;
+      } else {
+        MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
         return;
       }
     }
@@ -356,6 +358,9 @@ public class VenueHireSystem {
         Floral newFloral = new Floral(booking, floralType);
         newFloral.addingServices();
         return;
+      } else {
+        MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
+        return;
       }
     }
     MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
@@ -364,7 +369,7 @@ public class VenueHireSystem {
   public void viewInvoice(String bookingReference) {
     BookingsCreator currentBooking = null;
     boolean bookingValid = false;
-    
+
     // cehck if the refernces are equal
     for (BookingsCreator booking : allBookings) {
       if (booking.getBookingReference().equals(bookingReference)) {
@@ -375,7 +380,7 @@ public class VenueHireSystem {
     }
 
     if (bookingValid) {
-      
+
       // grab all the info out
       String customerEmail = currentBooking.getCustomerEmail();
       String partyDate = currentBooking.getPartyDate();
@@ -407,12 +412,13 @@ public class VenueHireSystem {
       MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(
           bookingReference, customerEmail, dateInput, partyDate, numberOfAttendees, venueName);
       MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(Integer.toString(venueHireFee));
-      MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(cateringinfo, Integer.toString(cateringCost));
+      MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(
+          cateringinfo, Integer.toString(cateringCost));
       MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage(Integer.toString(musicCost));
-      MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(floralInfo, Integer.toString(floralCost));
+      MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(
+          floralInfo, Integer.toString(floralCost));
       MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(Integer.toString(totalCost));
-    }
-    else if (bookingValid == false) {
+    } else if (bookingValid == false) {
       MessageCli.VIEW_INVOICE_BOOKING_NOT_FOUND.printMessage(bookingReference);
     }
   }

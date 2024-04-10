@@ -167,7 +167,7 @@ public class VenueHireSystem {
     String attendees = options[3];
     VenuesCreator requiredVenue = null;
 
-    ArrayList<BookingsCreator> requiredVenueBookings = new ArrayList<>();
+    ArrayList<BookingsCreator> requiredVenueBookings = new ArrayList<BookingsCreator>();
 
     // booking not made assign the date first
     if (dateInput == null) {
@@ -200,7 +200,7 @@ public class VenueHireSystem {
     }
 
     // if the booking is already made on that day for the venue code print error message
-    for (BookingsCreator booking : allBookings) {
+    for (BookingsCreator booking : requiredVenueBookings) {
       if (booking.getVenueCode().equals(venueCode) && booking.getPartyDate().equals(partyDate)) {
         MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(
             booking.getVenueName(), booking.getPartyDate());

@@ -15,7 +15,7 @@ public class VenuesCreator  {
       String venueCode,
       String capacityInput,
       String hireFeeInput,
-      ArrayList<BookingsCreator> allBookings) {
+      ArrayList<BookingsCreator> venueBookings) {
     this.name = venueName;
     this.code = venueCode;
     this.capacity = capacityInput;

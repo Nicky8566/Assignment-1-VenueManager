@@ -2,7 +2,7 @@ package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
 
-public class VenuesCreator  {
+public class VenuesCreator {
   private String name;
   private String code;
   private String capacity;
@@ -88,11 +88,6 @@ public class VenuesCreator  {
         if ((month) == 13) {
           month = 01;
           year++;
-        }
-        if (day == Integer.parseInt(dateParts[0])
-            && month == Integer.parseInt(dateParts[1])
-            && year == Integer.parseInt(dateParts[2])) {
-          return "not dates avaible";
         }
       }
     }

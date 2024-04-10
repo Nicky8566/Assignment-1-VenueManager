@@ -412,5 +412,8 @@ public class VenueHireSystem {
       MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(floralInfo, Integer.toString(floralCost));
       MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(Integer.toString(totalCost));
     }
+    else if (bookingValid == false) {
+      MessageCli.VIEW_INVOICE_BOOKING_NOT_FOUND.printMessage(bookingReference);
+    }
   }
 }

@@ -319,9 +319,8 @@ public class VenueHireSystem {
         Catering newCatering = new Catering(booking, cateringType);
         newCatering.addingServices();
         return;
-      }
-      // else is the booking with the refernce is not found print error message
-      else {
+      } else {
+        // else is the booking with the refernce is not found print error message
         MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
         return;
       }
@@ -344,9 +343,8 @@ public class VenueHireSystem {
         Music newMusic = new Music(booking);
         newMusic.addingServices();
         return;
-      }
-      // else is the booking with the refernce is not found print error message
-      else {
+      } else {
+        // else is the booking with the refernce is not found print error message
         MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
         return;
       }
@@ -366,12 +364,11 @@ public class VenueHireSystem {
       // look for the refernce in the bookings
       if (booking.getBookingReference().equals(bookingReference)) {
         MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(meesage, bookingReference);
-        Floral newFloral = new Floral(booking, floralType);
+        FloralServices newFloral = new FloralServices(booking, floralType);
         newFloral.addingServices();
         return;
-      }
-      // else is the booking with the refernce is not found print error message
-      else {
+      } else {
+        // else is the booking with the refernce is not found print error message
         MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
         return;
       }
@@ -414,7 +411,7 @@ public class VenueHireSystem {
         if (service instanceof Music) {
           musicCost += service.getCost();
         }
-        if (service instanceof Floral) {
+        if (service instanceof FloralServices) {
           floralCost += service.getCost();
           floralInfo = service.getName();
         }
